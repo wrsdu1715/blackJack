@@ -65,4 +65,8 @@ public abstract class Player {
 			System.out.println("21点を超えてバーストしました。" + getName() + "の負けです");
 		}
 	}
+	
+	public abstract void drawCard(Deck deck);
+	
+	public abstract void initialSet(Deck deck);
 }

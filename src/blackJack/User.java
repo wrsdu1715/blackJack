@@ -17,23 +17,18 @@ public class User extends Player{
 		statusNotice(true);
 	}
 
-	public void drawCardOrAsk(Deck deck) {
-		if (!getIsBurst()) {
-			Scanner sc = new Scanner(System.in);
-			try {
-				Object input = new Object();
-				while (!getIsBurst() && !input.equals("N")) {
-					System.out.println("カードを引きますか？引く場合はYを、引かない場合はNを押してください");
-					input = sc.nextLine();
-					if (input.equals("Y")) {
-						draw(deck, false);
-						statusNotice(true);
-					}
-				}
-			} catch (InputMismatchException e) {
-				System.out.println("YとN以外が入力されました。");
+	public void drawCard(Deck deck) {
+		Scanner sc = new Scanner(System.in);
+		Object input = new Object();
+		while (!getIsBurst() && !input.equals("N")) {
+			System.out.println("カードを引きますか？引く場合はYを、引かない場合はNを押してください");
+			input = sc.nextLine().toUpperCase();
+			if (input.equals("Y")) {
+				draw(deck, false);
+				statusNotice(true);
+			} else if (!input.equals("N")) {
+				System.out.println("Y/N以外が入力されました");
 			}
-
 		}
 	}
 }

@@ -16,7 +16,7 @@ public class Main {
 		user.initialSet(deck);
 		dealer.initialSet(deck);
 
-		user.drawCardOrAsk(deck);
+		user.drawCard(deck);
 
 		if (!user.getIsBurst()) {
 			dealer.showSecondCard();
@@ -24,5 +24,7 @@ public class Main {
 
 			dealer.gameResult(dealer, user);
 		}
+		
+		System.out.println("---- ‚¨‚í‚è ----");
 	}
 }

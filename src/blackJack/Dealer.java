@@ -22,6 +22,7 @@ public class Dealer extends Player {
 		List<Card> list = getHasHandList();
 		Card card = list.get(1);
 		System.out.println(getName() + "‚Ì2–‡–Ú‚Í" + card.getSuit() + "‚Ì" + card.NoString() + "‚Å‚µ‚½B");
+		statusNotice(false);
 	}
 
 	public void drawCard(Deck deck) {
