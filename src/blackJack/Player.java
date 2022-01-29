@@ -26,12 +26,16 @@ public abstract class Player {
 		return this.isBurst;
 	}
 	
+	public List<Card> getHasHandList() {
+		return this.hasHandList;
+	}
+	
 	public void calcTotalPoint() {
 		this.totalPoint = 0;
 		for (Card card : hasHandList) {
 			this.totalPoint += card.point();
 		}
-		this.checkTotalPointBurst();
+		checkTotalPointBurst();
 	}
 	
 	public void addHasHandList(Card card) {
@@ -39,7 +43,24 @@ public abstract class Player {
 	}
 	
 	public void checkTotalPointBurst() {
-		if (this.totalPoint >= this.BURST_POINT) { this.isBurst = true; }
+		if (this.totalPoint > this.BURST_POINT) { this.isBurst = true; }
 	}
 	
+	public void draw(Deck deck, boolean isMask) {
+		Card card = deck.draw();
+		addHasHandList(card);
+		
+		if (isMask) {
+			System.out.println(this.NAME + "の引いたカードは分かりません");
+		} else {
+			System.out.println(this.NAME + "の引いたカードは" + card.getSuit() + "の" + card.NoString() + "です");
+		}
+	}
+	
+	public void statusNotice(boolean isPlayer) {
+		System.out.println(getName() + "の現在の得点は" + getTotalPoint() + "です。");
+		if (isPlayer && this.isBurst) {
+			System.out.println("21点を超えてバーストしました。" + getName() + "の負けです");
+		}
+	}
 }

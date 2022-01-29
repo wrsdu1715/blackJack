@@ -3,6 +3,9 @@ package blackJack;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		System.out.println("----  ブラックジャックへようこそ ----");
+		System.out.println("ゲームを開始します");
 
 		User user = new User("あなた");
 		Dealer dealer = new Dealer("ディーラー");
@@ -13,13 +16,13 @@ public class Main {
 		user.initialSet(deck);
 		dealer.initialSet(deck);
 
-		user.cardCalculation();
 		user.drawCardOrAsk(deck);
 
-		dealer.showSecondCard();
-		dealer.cardCalculation();
-		dealer.drawCard(deck);
+		if (!user.getIsBurst()) {
+			dealer.showSecondCard();
+			dealer.drawCard(deck);
 
-		dealer.gameResult(dealer, user);
+			dealer.gameResult(dealer, user);
+		}
 	}
 }

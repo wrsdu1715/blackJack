@@ -1,62 +1,45 @@
 package blackJack;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Dealer {
-
-	private String name;
-	List<Card> hasHandList = new ArrayList<Card>();
-	private int totalPoint = 0;
+public class Dealer extends Player {
 
 	public Dealer(String name) {
-		this.name = name;
+		super(name);
 	}
 
 	public void initialSet(Deck deck) {
 		for (int i = 0; i < 2; i++) {
-			Card card = deck.draw();
-			hasHandList.add(card);
 			if (i == 1) {
-				System.out.println(this.name + "の引いたカードは分かりません");
+				draw(deck, true);
 			} else {
-				System.out.println(this.name + "の引いたカードは" + card.getSuit() + "の" + card.NoString() + "です");
+				draw(deck, false);
 			}
 		}
-	}
-
-	public int getTotalPoint() {
-		return this.totalPoint;
+		calcTotalPoint();
 	}
 
 	public void showSecondCard() {
-		Card card = hasHandList.get(1);
-		System.out.println(this.name + "の2枚目は" + card.getSuit() + "の" + card.getPoint() + "でした。");
-	}
-
-	public void cardCalculation() {
-		this.totalPoint = 0;
-		for (Card list : hasHandList) {
-			this.totalPoint += list.point();
-		}
-		System.out.println(this.name + "の現在の得点は" + this.totalPoint + "です。");
+		List<Card> list = getHasHandList();
+		Card card = list.get(1);
+		System.out.println(getName() + "の2枚目は" + card.getSuit() + "の" + card.NoString() + "でした。");
 	}
 
 	public void drawCard(Deck deck) {
-		while (this.totalPoint < 17) {
-			Card card = deck.draw();
-			hasHandList.add(card);
-			System.out.println(this.name + "が引いたカードは" + card.getSuit() + "の" + card.getPoint() + "です");
-			this.totalPoint += card.getPoint();
+		while (getTotalPoint() < 17 && !getIsBurst()) {
+			draw(deck, false);
+			calcTotalPoint();
+			statusNotice(false);
 		}
 	}
 
 	public void gameResult(Dealer dealer, User user) {
+		System.out.println(user.getName() + "の得点は" + user.getTotalPoint() + "です");
 		if (dealer.getTotalPoint() == user.getTotalPoint()) {
 			System.out.println("引き分けです");
 		} else {
-			if (dealer.getTotalPoint() > user.getTotalPoint()) {
-				System.out.println(dealer.name + "の勝ちです");
+			if (!dealer.getIsBurst() && (dealer.getTotalPoint() > user.getTotalPoint())) {
+				System.out.println(getName() + "の勝ちです");
 			} else {
 				System.out.println(user.getName() + "の勝ちです");
 			}
