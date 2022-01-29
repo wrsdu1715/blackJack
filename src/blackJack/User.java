@@ -14,7 +14,6 @@ public class User extends Player{
 		for (int i = 0; i < 2; i++) {
 			draw(deck, false);
 		}
-		calcTotalPoint();
 		statusNotice(true);
 	}
 
@@ -28,7 +27,6 @@ public class User extends Player{
 					input = sc.nextLine();
 					if (input.equals("Y")) {
 						draw(deck, false);
-						calcTotalPoint();
 						statusNotice(true);
 					}
 				}

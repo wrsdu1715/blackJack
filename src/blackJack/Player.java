@@ -55,6 +55,8 @@ public abstract class Player {
 		} else {
 			System.out.println(this.NAME + "‚Ìˆø‚¢‚½ƒJ[ƒh‚Í" + card.getSuit() + "‚Ì" + card.NoString() + "‚Å‚·");
 		}
+		
+		calcTotalPoint();
 	}
 	
 	public void statusNotice(boolean isPlayer) {

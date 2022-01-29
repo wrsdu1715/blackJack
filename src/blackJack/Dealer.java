@@ -16,7 +16,6 @@ public class Dealer extends Player {
 				draw(deck, false);
 			}
 		}
-		calcTotalPoint();
 	}
 
 	public void showSecondCard() {
@@ -28,7 +27,6 @@ public class Dealer extends Player {
 	public void drawCard(Deck deck) {
 		while (getTotalPoint() < 17 && !getIsBurst()) {
 			draw(deck, false);
-			calcTotalPoint();
 			statusNotice(false);
 		}
 	}
