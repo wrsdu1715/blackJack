@@ -5,45 +5,32 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class User {
+public class User extends Player{
 
-	private String name;
 	List<Card> hasHandList = new ArrayList<Card>();
 	private boolean isBurst = false;
-	private int totalPoint = 0;
 
 	public User(String name) {
-		this.name = name;
+		super(name);
 	}
 
 	public void initialSet(Deck deck) {
 		// 普通に2回関数実行させたほうが処理速度早い？
 		for (int i = 0; i < 2; i++) {
 			Card card = deck.draw();
-			hasHandList.add(card);
-			System.out.println(this.name + "が引いたカードは" + card.getSuit() + "の" + card.NoString() + "です");
+			addHasHandList(card);
+			System.out.println(getName() + "が引いたカードは" + card.getSuit() + "の" + card.NoString() + "です");
 		}
-	}
-
-	public int getTotalPoint() {
-		return this.totalPoint;
-	}
-
-	public String getName() {
-		return this.name;
 	}
 
 	public void cardCalculation() {
-		this.totalPoint = 0;
-		for (Card list : hasHandList) {
-			this.totalPoint += list.point();
-		}
+		calcTotalPoint();
 
-		if (this.totalPoint > 22) {
-			System.out.println("21点を超えてバーストしました。" + this.name + "の負けです");
-			this.isBurst = true;
+		if (getIsBurst()) {
+			System.out.println(getName() + "の現在の得点は" + getTotalPoint() + "です。");
+			System.out.println("21点を超えてバーストしました。" + getName() + "の負けです");
 		} else {
-			System.out.println(this.name + "の現在の得点は" + this.totalPoint + "です。");
+			System.out.println(getName() + "の現在の得点は" + getTotalPoint() + "です。");
 		}
 	}
 
@@ -57,8 +44,8 @@ public class User {
 					input = sc.nextLine();
 					if (input.equals("Y")) {
 						Card card = deck.draw();
-						hasHandList.add(card);
-						System.out.print(this.name + "引いたカードは" + card.getSuit() + "の" + card.NoString() + "です\n");
+						addHasHandList(card);
+						System.out.print(getName() + "引いたカードは" + card.getSuit() + "の" + card.NoString() + "です\n");
 						this.cardCalculation();
 					}
 				}
